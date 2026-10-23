@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import Materiales from './pages/Materiales'
 import Solicitudes from './pages/Solicitudes'
+import Pendones from './pages/Pendones'
+import Reportes from './pages/Reportes'
+
+const TABS = [
+  ['inventario', 'Inventario'],
+  ['solicitudes', 'Solicitudes'],
+  ['pendones', 'Pendones'],
+  ['reportes', 'Reportes'],
+]
 
 export default function App() {
   const [tab, setTab] = useState('inventario')
@@ -18,23 +27,17 @@ export default function App() {
       </header>
 
       <nav className="tabs">
-        <button
-          type="button"
-          className={tab === 'inventario' ? 'tab active' : 'tab'}
-          onClick={() => setTab('inventario')}
-        >
-          Inventario
-        </button>
-        <button
-          type="button"
-          className={tab === 'solicitudes' ? 'tab active' : 'tab'}
-          onClick={() => setTab('solicitudes')}
-        >
-          Solicitudes
-        </button>
+        {TABS.map(([id, label]) => (
+          <button key={id} type="button" className={tab === id ? 'tab active' : 'tab'} onClick={() => setTab(id)}>
+            {label}
+          </button>
+        ))}
       </nav>
 
-      {tab === 'inventario' ? <Materiales /> : <Solicitudes />}
+      {tab === 'inventario' && <Materiales />}
+      {tab === 'solicitudes' && <Solicitudes />}
+      {tab === 'pendones' && <Pendones />}
+      {tab === 'reportes' && <Reportes />}
     </div>
   )
 }

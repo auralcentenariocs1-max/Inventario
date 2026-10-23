@@ -168,46 +168,23 @@ export default function Materiales() {
           <form onSubmit={agregarMaterial}>
             <div className="field">
               <label htmlFor="newName">Nombre del material</label>
-              <input
-                id="newName"
-                type="text"
-                placeholder="Ej: Volantes chequeo gratis"
-                value={nombre}
-                onChange={e => setNombre(e.target.value)}
-                required
-              />
+              <input id="newName" type="text" placeholder="Ej: Volantes chequeo gratis"
+                value={nombre} onChange={e => setNombre(e.target.value)} required />
             </div>
             <div className="field">
               <label htmlFor="newStock">Cantidad actual</label>
-              <input
-                id="newStock"
-                type="number"
-                min="0"
-                placeholder="0"
-                value={stock}
-                onChange={e => setStock(e.target.value)}
-                required
-              />
+              <input id="newStock" type="number" min="0" placeholder="0"
+                value={stock} onChange={e => setStock(e.target.value)} required />
             </div>
             <div className="field">
               <label htmlFor="newThreshold">Alertar en</label>
-              <input
-                id="newThreshold"
-                type="number"
-                min="0"
-                value={umbral}
-                onChange={e => setUmbral(e.target.value)}
-                required
-              />
+              <input id="newThreshold" type="number" min="0"
+                value={umbral} onChange={e => setUmbral(e.target.value)} required />
             </div>
             <div className="field">
               <label htmlFor="newImage">Foto (opcional)</label>
-              <input
-                id="newImage"
-                type="file"
-                accept="image/*"
-                onChange={e => setImagenFile(e.target.files?.[0] || null)}
-              />
+              <input id="newImage" type="file" accept="image/*"
+                onChange={e => setImagenFile(e.target.files?.[0] || null)} />
             </div>
             <button type="submit" disabled={subiendo}>
               {subiendo ? 'Guardando...' : 'Agregar material'}

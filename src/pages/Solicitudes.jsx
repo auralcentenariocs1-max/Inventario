@@ -54,22 +54,10 @@ export default function Solicitudes() {
     e.preventDefault()
     const cantidadNum = parseInt(cantidad, 10)
 
-    if (!materialId) {
-      mostrarToast('Elegí un material.', true)
-      return
-    }
-    if (!area.trim()) {
-      mostrarToast('Indicá qué área lo solicita.', true)
-      return
-    }
-    if (!persona.trim()) {
-      mostrarToast('Indicá quién retira el material.', true)
-      return
-    }
-    if (isNaN(cantidadNum) || cantidadNum <= 0) {
-      mostrarToast('Cantidad no válida.', true)
-      return
-    }
+    if (!materialId) { mostrarToast('Elegí un material.', true); return }
+    if (!area.trim()) { mostrarToast('Indicá qué área lo solicita.', true); return }
+    if (!persona.trim()) { mostrarToast('Indicá quién retira el material.', true); return }
+    if (isNaN(cantidadNum) || cantidadNum <= 0) { mostrarToast('Cantidad no válida.', true); return }
 
     const materialAntes = materiales.find(m => m.id === materialId)
 
@@ -113,57 +101,34 @@ export default function Solicitudes() {
             <select id="reqMaterial" value={materialId} onChange={e => setMaterialId(e.target.value)} required>
               {materiales.length === 0 && <option value="">Agregá un material primero</option>}
               {materiales.map(m => (
-                <option key={m.id} value={m.id}>
-                  {m.nombre} (stock: {m.stock})
-                </option>
+                <option key={m.id} value={m.id}>{m.nombre} (stock: {m.stock})</option>
               ))}
             </select>
           </div>
           <div className="field">
             <label htmlFor="reqArea">Área que solicita</label>
-            <input
-              id="reqArea"
-              type="text"
-              list="areaOptions"
-              placeholder="Ej: Bogotá"
-              value={area}
-              onChange={e => setArea(e.target.value)}
-              required
-            />
+            <input id="reqArea" type="text" list="areaOptions" placeholder="Ej: Bogotá"
+              value={area} onChange={e => setArea(e.target.value)} required />
             <datalist id="areaOptions">
-              {CIUDADES.map(c => (
-                <option key={c} value={c} />
-              ))}
+              {CIUDADES.map(c => (<option key={c} value={c} />))}
             </datalist>
           </div>
           <div className="field">
             <label htmlFor="reqPersona">Persona que retira</label>
-            <input
-              id="reqPersona"
-              type="text"
-              placeholder="Ej: Yurani Gómez"
-              value={persona}
-              onChange={e => setPersona(e.target.value)}
-              required
-            />
+            <input id="reqPersona" type="text" placeholder="Ej: Yurani Gómez"
+              value={persona} onChange={e => setPersona(e.target.value)} required />
           </div>
           <div className="field">
             <label htmlFor="reqQty">Cantidad solicitada</label>
-            <input
-              id="reqQty"
-              type="number"
-              min="1"
-              value={cantidad}
-              onChange={e => setCantidad(e.target.value)}
-              required
-            />
+            <input id="reqQty" type="number" min="1"
+              value={cantidad} onChange={e => setCantidad(e.target.value)} required />
           </div>
           <button type="submit">Registrar solicitud</button>
         </form>
       </div>
 
       <div className="card">
-        <h2>Historial de solicitudes</h2>
+        <h2>Últimas solicitudes</h2>
         {loading ? (
           <div className="empty">Cargando...</div>
         ) : historial.length === 0 ? (
@@ -171,13 +136,7 @@ export default function Solicitudes() {
         ) : (
           <table>
             <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Material</th>
-                <th>Área</th>
-                <th>Persona</th>
-                <th>Cantidad</th>
-              </tr>
+              <tr><th>Fecha</th><th>Material</th><th>Área</th><th>Persona</th><th>Cantidad</th></tr>
             </thead>
             <tbody>
               {historial.map(h => (
@@ -192,6 +151,9 @@ export default function Solicitudes() {
             </tbody>
           </table>
         )}
+        <div className="muted-small" style={{ marginTop: 10 }}>
+          Mostrando las últimas 100. Para ver y descargar todo el historial por mes, usá la pestaña Reportes.
+        </div>
       </div>
 
       {toast && (
